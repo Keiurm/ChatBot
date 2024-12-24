@@ -1,0 +1,13 @@
+<html>
+<head>
+</head>
+<body>
+{% if announce %}
+<p style="font-size:20;">{{msg}}</p>
+{% elif warning %}
+<p style="font-size:20; color:red;">{{msg}}</p>
+{% else %}
+<p>{{msg}}</p>
+{% endif %}
+</body>
+</html>
