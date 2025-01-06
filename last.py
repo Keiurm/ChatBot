@@ -4,10 +4,7 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 from io import BytesIO
-import os
-
 import numpy as np
-from PIL import Image
 
 app = Flask(__name__)
 redis = Redis(host="redis", port=6379)
@@ -21,14 +18,16 @@ def hello():
 
 def get_openai_key():
     load_dotenv()
-    return os.getenv("OPENAI_API_KEY")
+    openai_key = os.getenv("OPENAI_API_KEY")
 
 
 @app.route("/chat", methods=["POST"])
 def chat():
-    data = request.get_json()
-    msg = data.get("message", "")
-    return jsonify({"response": f"受け取ったメッセージ: {msg}"})
+    #APIKeyの取得
+    get_openai_key()
+
+
+
 
 
 if __name__ == "__main__":

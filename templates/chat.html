@@ -16,7 +16,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ChatBot</title>
-    <nav style="background-color: #3a98b9" class="navbar navbar-light">
+    <nav style="background-color: #000000" class="navbar navbar-light">
       <a href="#" class="navbar-brand" style="color: white; margin-left: 20px"
         >ChatBot</a
       >
@@ -27,10 +27,10 @@
       }
     </style>
   </head>
-  <body>
+  <body style="background-color: #1c1c1c">
     <div
       class="container"
-      style="max-width: 70%; height: 1200px; background-color: antiquewhite"
+      style="max-width: 70%; height: auto; background-color: #1c1c1c"
     ></div>
     <div
       class="form_group"
@@ -45,7 +45,7 @@
         left: 50%;
         transform: translateX(-50%);
         border-radius: 20px;
-        overflow-y: auto;
+        margin-bottom: 10px;
       "
     >
       <div
@@ -74,25 +74,45 @@
         <button
           type="button"
           class="btn btn-primary"
-          style="margin-left: 15px"
+          style="
+            margin-left: 15px;
+            border-radius: 20px;
+            background-color: #1c1c1c;
+            border: 1px solid #1c1c1c;
+          "
           onclick="sendMessage()"
         >
-          送信
+          ↑
         </button>
       </div>
     </div>
     <script>
-      //http://localhost:5000/chatにPOSTリクエストを送る
       function sendMessage() {
-        const message = document.querySelector("textarea").value;
-        $.ajax({
-          url: "http://localhost:5500/chat",
-          type: "POST",
-          data: { message: message },
-          success: function (data) {
-            console.log(data);
-          },
-        });
+        const message = $(".form").val();
+        if (message === "") {
+          alert("メッセージを入力してください");
+          return;
+        } else {
+          $(".container").append(
+            `<div style="display: flex; justify-content: flex-end; margin-top: 10px; margin-right: 20px">
+            <div style="background-color: #b0b0b0; color: white; padding: 1px; border-radius: 10px; max-width: 50%; word-wrap: break-word">
+              ${message}
+            </div>
+          </div>`
+          );
+          $(".form").val("");
+          $.ajax({
+            //アドレス変更する
+            url: "http://localhost:5000/chat",
+            type: "POST",
+            data: JSON.stringify({ message: message }),
+            contentType: "application/json",
+            success: function (data) {
+              
+            
+            },
+          });
+        }
       }
     </script>
   </body>
