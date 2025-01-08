@@ -10,7 +10,7 @@ client = OpenAI(api_key=openai_key)
 
 stream = client.chat.completions.create(
     model="gpt-4o-mini",
-    messages=[{"role": "user", "content": "AIとはなんですか？"}],
+    messages=[{"role": "user", "content": "こんにちは"}],
     stream=True,
     # トークン数を制限
     max_tokens=50,

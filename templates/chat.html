@@ -16,7 +16,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ChatBot</title>
-    <nav style="background-color: #000000" class="navbar navbar-light">
+    <nav style="background-color: #1c1c1c" class="navbar navbar-light">
       <a href="#" class="navbar-brand" style="color: white; margin-left: 20px"
         >ChatBot</a
       >
@@ -30,60 +30,61 @@
   <body style="background-color: #1c1c1c">
     <div
       class="container"
-      style="max-width: 70%; height: auto; background-color: #1c1c1c"
-    ></div>
-    <div
-      class="form_group"
-      style="
-        max-width: 70%;
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        height: 50px;
-        max-height: 100px;
-        background-color: black;
-        left: 50%;
-        transform: translateX(-50%);
-        border-radius: 20px;
-        margin-bottom: 10px;
-      "
+      style="max-width: 65%; height: auto; background-color: #1c1c1c"
     >
       <div
+        class="form_group"
         style="
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          margin-left: 25px;
-          margin-top: 5px;
+          position: fixed;
+          bottom: 0;
+          height: 50px;
+          max-height: 100px;
+          background-color: black;
+          left: 50%;
+          transform: translateX(-50%);
+          border-radius: 20px;
+          margin-bottom: 10px;
+          width: 60%;
         "
       >
-        <textarea
-          class="form"
-          placeholder="メッセージを入力してください"
+        <div
           style="
-            background-color: black;
-            border: black;
-            box-shadow: none;
-            color: white;
-            width: 85%;
-            overflow: hidden;
-            resize: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: 25px;
+            margin-top: 5px;
           "
-          rows="1"
-        ></textarea>
-        <button
-          type="button"
-          class="btn btn-primary"
-          style="
-            margin-left: 15px;
-            border-radius: 20px;
-            background-color: #1c1c1c;
-            border: 1px solid #1c1c1c;
-          "
-          onclick="sendMessage()"
         >
-          ↑
-        </button>
+          <textarea
+            class="form"
+            placeholder="メッセージを入力してください"
+            style="
+              background-color: black;
+              border: 1px solid black;
+              box-shadow: none;
+              color: white;
+              overflow: hidden;
+              resize: none;
+              width: 100%;
+            "
+            rows="1"
+          ></textarea>
+          <button
+            type="button"
+            class="btn btn-primary"
+            style="
+              margin-left: auto;
+              margin-right: 1%;
+              border-radius: 20px;
+              background-color: #1c1c1c;
+              border: 1px solid #1c1c1c;
+            "
+            onclick="sendMessage()"
+          >
+            ↑
+          </button>
+        </div>
       </div>
     </div>
     <script>
@@ -95,7 +96,7 @@
         } else {
           $(".container").append(
             `<div style="display: flex; justify-content: flex-end; margin-top: 10px; margin-right: 20px">
-            <div style="background-color: #b0b0b0; color: white; padding: 1px; border-radius: 10px; max-width: 50%; word-wrap: break-word">
+            <div style="background-color: black; color: white; padding: 8px 20px; border-radius: 10px; max-width: 50%; word-wrap: break-word">
               ${message}
             </div>
           </div>`
@@ -110,15 +111,18 @@
             success: function (data) {
               console.log(data);
               //responseを受け取る
-              const botResponse = data;
+              const botResponse = data.message;
               $(".container").append(
                 `<div style="display: flex; justify-content: flex-start; margin-top: 10px; margin-left: 20px">
-                <div style="background-color: #b0b0b0; color: white; padding: 1px; border-radius: 10px; max-width: 50%; word-wrap: break-word">
+                <div style="color: white; padding: 8px;max-width: 50%; word-wrap: break-word">
                   ${botResponse}
                 </div>
                 </div>
               </div>`
               );
+            },
+            error: function (data) {
+              console.log(data);
             },
           });
         }

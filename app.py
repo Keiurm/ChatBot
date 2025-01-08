@@ -1,9 +1,16 @@
 from flask import Flask, render_template, request, jsonify
 from redis import Redis
+import os
+from dotenv import load_dotenv
+from openai import OpenAI
 
+# 環境変数を読み込む
+load_dotenv()
 
+openai_key = os.environ["OPENAI_API_KEY"]
+
+client = OpenAI(api_key=openai_key)
 app = Flask(__name__)
-redis = Redis(host="redis", port=6379)
 
 
 @app.route("/")
@@ -18,10 +25,24 @@ def t1():
 
 @app.route("/response", methods=["POST"])
 def response():
-    m = "hello"
+    data = request.json
+    generate_response()
+    return jsonify(data)
 
-    return jsonify(m)
+
+def generate_response():
+    stream = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[{"role": "user", "content": "こんにちは"}],
+        stream=True,
+        # トークン数を制限
+        max_tokens=50,
+    )
+
+    for chunk in stream:
+        if chunk.choices[0].delta.content is not None:
+            print(chunk.choices[0].delta.content, end="")
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=80, debug=True)
+    app.run(host="0.0.0.0", debug=True)
