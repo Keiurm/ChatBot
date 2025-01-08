@@ -1,19 +1,20 @@
 import os
 from dotenv import load_dotenv
-import openai
 from openai import OpenAI
 
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
 
-client = OpenAI()
+openai_key = os.environ["OPENAI_API_KEY"]
 
-completion = client.chat.completions.create(
+client = OpenAI(api_key=openai_key)
+
+stream = client.chat.completions.create(
     model="gpt-4o-mini",
-    messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "Write a haiku about recursion in programming."},
-    ],
+    messages=[{"role": "user", "content": "AIとはなんですか？"}],
+    stream=True,
+    # トークン数を制限
+    max_tokens=50,
 )
-
-print(completion.choices[0].message)
+for chunk in stream:
+    if chunk.choices[0].delta.content is not None:
+        print(chunk.choices[0].delta.content, end="")
