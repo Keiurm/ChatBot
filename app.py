@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from redis import Redis
 
 
@@ -14,6 +14,13 @@ def home():
 @app.route("/t1")
 def t1():
     return render_template("t1.html")
+
+
+@app.route("/response", methods=["POST"])
+def response():
+    m = "hello"
+
+    return jsonify(m)
 
 
 if __name__ == "__main__":

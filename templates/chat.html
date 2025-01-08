@@ -103,11 +103,23 @@
           $(".form").val("");
           $.ajax({
             //アドレス変更する
-            url: "http://localhost:5000/chat",
+            url: "http://127.0.0.1:10000/response",
             type: "POST",
             data: JSON.stringify({ message: message }),
             contentType: "application/json",
-            success: function (data) {},
+            success: function (data) {
+              console.log(data);
+              //responseを受け取る
+              const botResponse = data;
+              $(".container").append(
+                `<div style="display: flex; justify-content: flex-start; margin-top: 10px; margin-left: 20px">
+                <div style="background-color: #b0b0b0; color: white; padding: 1px; border-radius: 10px; max-width: 50%; word-wrap: break-word">
+                  ${botResponse}
+                </div>
+                </div>
+              </div>`
+              );
+            },
           });
         }
       }
