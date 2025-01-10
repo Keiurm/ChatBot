@@ -18,8 +18,6 @@ def generate_response():
         model="gpt-4o-mini",
         messages=[{"role": "user", "content": "こんにちは"}],
         stream=True,
-        # トークン数を制限
-        max_tokens=50,
     )
 
     for chunk in stream:

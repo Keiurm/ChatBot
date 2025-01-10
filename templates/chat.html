@@ -17,7 +17,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ChatBot</title>
     <nav style="background-color: #1c1c1c" class="navbar navbar-light">
-      <a href="#" class="navbar-brand" style="color: white; margin-left: 20px"
+      <a
+        href="#"
+        class="navbar-brand"
+        style="color: whitesmoke; margin-left: 20px"
         >ChatBot</a
       >
       <select
@@ -25,8 +28,9 @@
         style="
           margin-right: auto;
           background-color: #1c1c1c;
-          color: white;
+          color: whitesmoke;
           border-radius: 10px;
+          border: 1px solid #1c1c1c;
         "
       >
         <option value="o1">o1</option>
@@ -77,7 +81,7 @@
               background-color: black;
               border: 1px solid black;
               box-shadow: none;
-              color: white;
+              color: whitesmoke;
               overflow: hidden;
               resize: none;
               width: 100%;
@@ -110,17 +114,19 @@
         } else {
           $(".container").append(
             `<div style="display: flex; justify-content: flex-end; margin-top: 10px; margin-right: 20px">
-            <div style="background-color: black; color: white; padding: 8px 20px; border-radius: 10px; max-width: 50%; word-wrap: break-word">
+            <div style="background-color: black; color: whitesmoke; padding: 8px 20px; border-radius: 10px; max-width: 50%; word-wrap: break-word">
               ${message}
             </div>
           </div>`
           );
           $(".form").val("");
           $.ajax({
-            //アドレス変更する
             url: "http://127.0.0.1:10000/response",
             type: "POST",
-            data: JSON.stringify({ message: message }),
+            data: JSON.stringify({
+              message: message,
+              model: $(".model-select").val(),
+            }),
             contentType: "application/json",
             success: function (data) {
               console.log(data);
@@ -128,7 +134,7 @@
               const botResponse = data.message;
               $(".container").append(
                 `<div style="display: flex; justify-content: flex-start; margin-top: 10px; margin-left: 20px">
-                <div style="color: white; padding: 8px;max-width: 50%; word-wrap: break-word">
+                <div style="color: whitesmoke; padding: 8px;max-width: 50%; word-wrap: break-word">
                   ${botResponse}
                 </div>
                 </div>
