@@ -108,10 +108,17 @@
     <script>
       function sendMessage() {
         const message = $(".form").val();
+
         if (message === "") {
           alert("メッセージを入力してください");
           return;
         } else {
+          console.log(
+            JSON.stringify({
+              message: message,
+              model: $(".model-select").val(),
+            })
+          );
           $(".container").append(
             `<div style="display: flex; justify-content: flex-end; margin-top: 10px; margin-right: 20px">
             <div style="background-color: black; color: whitesmoke; padding: 8px 20px; border-radius: 10px; max-width: 50%; word-wrap: break-word">
@@ -127,11 +134,12 @@
               message: message,
               model: $(".model-select").val(),
             }),
+
             contentType: "application/json",
-            success: function (data) {
-              console.log(data);
+            success: function (data2) {
+              console.log(data2);
               //responseを受け取る
-              const botResponse = data.message;
+              const botResponse = data2;
               $(".container").append(
                 `<div style="display: flex; justify-content: flex-start; margin-top: 10px; margin-left: 20px">
                 <div style="color: whitesmoke; padding: 8px;max-width: 50%; word-wrap: break-word">
