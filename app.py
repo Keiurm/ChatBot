@@ -47,11 +47,6 @@ def home():
     return render_template("chat.html")
 
 
-@app.route("/t1")
-def t1():
-    return render_template("t1.html")
-
-
 @app.route("/response", methods=["POST"])
 def response():
     data = request.json
