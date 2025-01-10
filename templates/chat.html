@@ -143,8 +143,9 @@
               $(".container").append(
                 `<div style="display: flex; justify-content: flex-start; margin-top: 10px; margin-left: 20px">
                 <div style="color: whitesmoke; padding: 8px;max-width: 50%; word-wrap: break-word">
-                  ${botResponse}
-                </div>
+                  ${botResponse}<br><div style="color: #778899; font-size:small;">${$(
+                  ".model-select"
+                ).val()}</div>
                 </div>
               </div>`
               );
