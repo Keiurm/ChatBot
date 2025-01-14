@@ -98,6 +98,7 @@
           <button
             type="button"
             class="btn btn-primary"
+            id="sendbutton"
             style="
               margin-left: auto;
               margin-right: 1%;
@@ -120,6 +121,7 @@
           alert("メッセージを入力してください");
           return;
         } else {
+          sendbutton.disabled = true;
           console.log(
             JSON.stringify({
               message: message,
@@ -146,6 +148,7 @@
             success: function (data2) {
               console.log(data2);
               //responseを受け取る
+              sendbutton.disabled = false;
               const botResponse = data2;
               $(".container").append(
                 `<div style="display: flex; justify-content: flex-start; margin-top: 10px; margin-left: 20px">
