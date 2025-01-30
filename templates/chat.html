@@ -34,10 +34,10 @@
           border: 1px solid #1c1c1c;
         "
       >
-        <option value="GPT-4o-mini">GPT-4o-mini</option>
-        <option value="GPT-4o">GPT-4o</option>
-        <option value="o1 mini">o1 mini</option>
-        <option value="o1 preview">o1 preview</option>
+        <option value="gpt-4o-mini">GPT-4o-mini</option>
+        <option value="gpt-4o">GPT-4o</option>
+        <option value="o1-mini">o1 mini</option>
+        <option value="o1-preview">o1 preview</option>
       </select>
     </nav>
     <style>
@@ -106,7 +106,7 @@
               background-color: #1c1c1c;
               border: 1px solid #1c1c1c;
             "
-            onclick="sendMessage()"
+            onclick="sendreceiveMessage()"
           >
             ↑
           </button>
@@ -114,7 +114,7 @@
       </div>
     </div>
     <script>
-      function sendMessage() {
+      function sendreceiveMessage() {
         const message = $(".form").val();
 
         if (message === "") {
@@ -135,7 +135,10 @@
             </div>
           </div>`
           );
+          // メッセージを送信した後、フォームを空にする
           $(".form").val("");
+
+          // メッセージの送信
           $.ajax({
             url: "http://127.0.0.1:10000/response",
             type: "POST",
@@ -147,26 +150,25 @@
             contentType: "application/json",
             success: function (data2) {
               console.log(data2);
-              //responseを受け取る
               sendbutton.disabled = false;
               $(".container").append(
                 `<div style="display: flex; flex-direction: column; justify-content: flex-start; margin-top: 10px; margin-left: 20px">
                   <div style="color: whitesmoke; max-width: 50%; word-wrap: break-word; margin: 0px; padding: 0;">
-                  ${renderMarkdown(data2)}
+                  ${renderMarkdown(data2[0])}
                 <div style="color: #778899; font-size: small; margin-top:-20px; padding: 0px; margin-right: auto; margin-right: 0px;margin-bottom: 8vh;">
-                  ${$(".model-select").val()}
+                  ${data2[1]}
                   </div>
                   </div>
                 </div>`
               );
             },
             error: function (data) {
-              console.log(data);
+              console.log(data2);
             },
           });
         }
       }
-
+      // マークダウンをHTMLに変換する関数
       function renderMarkdown(markdownText) {
         return marked.parse(markdownText);
       }
