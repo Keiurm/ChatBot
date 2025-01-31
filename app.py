@@ -42,6 +42,7 @@ def generate_response(message, model):
             messages=messages,
         )
         response_list.append(completion.choices[0].message.content)
+        # モデル名を公式の表現に変更
         if model == "gpt-4o-mini":
             model = "GPT-4o-mini"
         elif model == "gpt-4o":
